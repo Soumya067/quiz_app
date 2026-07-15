@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 package com.example.quiz;
 
 public class QuestionAnswer {
@@ -18,3 +19,5 @@ public class QuestionAnswer {
     };
 
 }
+=======
+>>>>>>> Stashed changes
