@@ -1,119 +1,113 @@
-# quiz
-package com.example.quiz;
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cardview_shadow_start_color"
+    tools:context=".MainActivity">
 
-import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/total_question"
+    android:text="Total Questions"
+    android:textStyle="bold"
+    android:layout_centerHorizontal="true"
+    android:textSize="20sp"
+    tools:ignore="HardcodedText" />
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/question"
+        android:gravity="center_horizontal"
+        android:textStyle="bold"
+        android:text="This will be the question"
+        android:textColor="@color/white"
+        android:textSize="24dp"
+        android:textAlignment="center"
+        android:layout_margin="20dp"
+        android:layout_above="@id/choices_layout"
+        tools:ignore="HardcodedText,,SpUsage" />
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
-    TextView totalQuestionsTextView;
-    TextView questionTextView;
-    Button ansA, ansB, ansC, ansD;
-    Button submitBtn;
-
-    int score = 0;
-    int totalQuestion = QuestionAnswer.question.length;
-    int CurrentQuestionIndex = 0;
-    String selectedAnswer = "";
-
-    @SuppressLint("SetTextI18n")
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-        totalQuestionsTextView = findViewById(R.id.total_question);
-        questionTextView = findViewById(R.id.question);
-        ansA = findViewById(R.id.ans_A);
-        ansB = findViewById(R.id.ans_B);
-        ansC = findViewById(R.id.ans_C);
-        ansD = findViewById(R.id.ans_D);
-        submitBtn = findViewById(R.id.submit_btn);
-
-        ansA.setOnClickListener(this);
-        ansB.setOnClickListener(this);
-        ansC.setOnClickListener(this);
-        ansD.setOnClickListener(this);
-        submitBtn.setOnClickListener(this);
-
-        totalQuestionsTextView.setText("total Questions :" + totalQuestion);
-
-        loadNewQuestion();
-    }
-
-    @Override
-    public void onClick(View v) {
-        ansA.setBackgroundColor(Color.WHITE);
-        ansB.setBackgroundColor(Color.WHITE);
-        ansC.setBackgroundColor(Color.WHITE);
-        ansD.setBackgroundColor(Color.WHITE);
-
-        Button clickedButton = (Button) v;
-        if (clickedButton.getId() == R.id.submit_btn) {
-            if (selectedAnswer.equals(QuestionAnswer.correctAnswer[CurrentQuestionIndex])) {
-                score++;
-            }
-            CurrentQuestionIndex++;
-            loadNewQuestion();
-
-        } else {
-            selectedAnswer = clickedButton.getText().toString();
-            clickedButton.setBackgroundColor(Color.MAGENTA);
-        }
-
-    }
-
-    void loadNewQuestion() {
-        if (CurrentQuestionIndex == totalQuestion) {
-            finishQuiz();
-            return;
-        }
-        questionTextView.setText(QuestionAnswer.question[CurrentQuestionIndex]);
-        ansA.setText(QuestionAnswer.choices[CurrentQuestionIndex][0]);
-        ansB.setText(QuestionAnswer.choices[CurrentQuestionIndex][1]);
-        ansC.setText(QuestionAnswer.choices[CurrentQuestionIndex][2]);
-        ansD.setText(QuestionAnswer.choices[CurrentQuestionIndex][3]);
-
-    }
-
-    void finishQuiz() {
-        String passStatus;
-
-        if (score >= totalQuestion * 0.60) {
-            passStatus = "Passed";
-        } else {
-            passStatus = "Failed";
-        }
-
-        new AlertDialog.Builder(this)
-                .setTitle(passStatus)
-                .setMessage("Score is " + score + " out of " + totalQuestion)
-                .setPositiveButton("Restart", (dialogInterface, i) -> restartQuiz())
-                .setCancelable(false)
-                .show();
-    }
+    <LinearLayout
+        android:id="@+id/choices_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/ans_A"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="-169dp"
+        android:orientation="vertical"
+        tools:ignore="NotSibling,UselessLeaf">
 
 
-    void restartQuiz(){
-        score=0;
-        CurrentQuestionIndex =0;
-        loadNewQuestion();
-    }
-}
+        <Button
+            android:id="@+id/ans_A"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:backgroundTint="@color/white"
+            android:text="Ans A"
+            android:textColor="@color/black"
+            tools:ignore="HardcodedText"
+            tools:targetApi="21" />
 
+
+        <Button
+            android:id="@+id/ans_B"
+            android:layout_width="401dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:backgroundTint="@color/white"
+            android:text="Ans B"
+            android:textColor="@color/black"
+            tools:ignore="HardcodedText"
+            tools:targetApi="21" />
+
+        <Button
+            android:id="@+id/ans_C"
+            android:layout_width="400dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:backgroundTint="@color/white"
+            android:text="Ans C"
+            android:textColor="@color/black"
+            tools:ignore="HardcodedText"
+            tools:targetApi="21" />
+
+
+        <Button
+            android:id="@+id/ans_D"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout"
+            android:layout_alignBottom="@+id/linearLayout"
+            android:layout_margin="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="213dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="-261dp"
+            android:backgroundTint="@color/white"
+            android:baselineAligned="false"
+            android:text="Ans D"
+            android:textColor="@color/black"
+            tools:ignore="HardcodedText,ObsoleteLayoutParam"
+            tools:targetApi="21" />
+
+        <Button
+            android:id="@+id/submit_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="submit"
+            android:layout_marginTop="40dp"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
