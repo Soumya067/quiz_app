@@ -1,4 +1,3 @@
-# quiz
 package com.example.quiz;
 
 import android.annotation.SuppressLint;
